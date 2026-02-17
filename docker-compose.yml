@@ -1,147 +1,46 @@
+version: '3.4'
+
 services:
-  # SQL Server container
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
-    container_name: sqlserver
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "StrongPassword123!"
+      SA_PASSWORD: "Your_password123!"
+    ports:
+      - "1433:1433"
     volumes:
       - sql_data:/var/opt/mssql
-    ports:
-      - "1434:1433"  # Optional, allows SSMS or host connection
+    healthcheck:
+      test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "Your_password123!", "-Q", "SELECT 1", "-No"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
-  redis:
-    image: redis:7
-    container_name: redis
-    ports:
-      - "6379:6379"   # optional, for local debugging
-    restart: unless-stopped
-
-  minio:
-    image: minio/minio
-    container_name: minio
-    ports:
-      - "9000:9000"   # API endpoint
-      - "9001:9001"   # Web console
-    environment:
-      MINIO_ROOT_USER: minioaccesskey
-      MINIO_ROOT_PASSWORD: miniosecretkey
-    command: server /data --console-address ":9001"
-    volumes:
-      - minio_data:/data
-  kafka:
-    image: bitnami/kafka:latest
-    container_name: kafka
-    ports:
-      - "9092:9092"     # internal + host (optional)
-      - "9094:9094"     # host access if you want tools on your machine
-    environment:
-      # KRaft (no Zookeeper)
-      - KAFKA_CFG_NODE_ID=0
-      - KAFKA_CFG_PROCESS_ROLES=controller,broker
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
-
-      # Listeners
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
-      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-    volumes:
-      - kafka_data:/bitnami
-      # Dev convenience (don’t use in prod as-is)
-      - ALLOW_PLAINTEXT_LISTENER=yes
-      - KAFKA_CFG_AUTO_CREATE_TOPICS_ENABLE=true
-
-  kafka-ui:
-    image: provectuslabs/kafka-ui:latest
-    container_name: kafka-ui
+  userservice:
+    build:
+      context: .
+      dockerfile: User_Service/Dockerfile
+    container_name: userservice
     depends_on:
-      - kafka
-    ports:
-      - "8085:8080"
+      sqlserver:
+        condition: service_healthy
     environment:
-      - KAFKA_CLUSTERS_0_NAME=local
-      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka:9092
- 
-
-  # Users microservice
-  users-service:
-    build: 
-      context: ./Users
-    container_name: users-service
-    depends_on:
-      - sqlserver
-      - redis
-
-    environment:
-      # ASPNETCORE_URLS: "http://+:8080"
-      ConnectionStrings__DefaultConnection: >
-        Server=sqlserver,1433;
-        Database=UserDb;
-        User Id=sa;
-        Password=StrongPassword123!;
-        TrustServerCertificate=True;
-      Redis__Configuration: redis:6379
-
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=UserDb;User Id=sa;Password=Your_password123!;TrustServerCertificate=True;"
     ports:
       - "5001:8080"
 
-  # Product microservice
-  product-service:
-    build: 
-      context: ./Product
-    container_name: product-service
+  apigateway:
+    build:
+      context: .
+      dockerfile: APIGateway/Dockerfile
+    container_name: apigateway
     depends_on:
-      - sqlserver
-      - redis
-      - kafka
+      - userservice
     environment:
-      ConnectionStrings__DefaultConnection: >
-        Server=sqlserver,1433;
-        Database=ProductDb;
-        User Id=sa;
-        Password=StrongPassword123!;
-        TrustServerCertificate=True;
-      Redis__Configuration: redis:6379
-      Kafka__BootstrapServers: kafka:9092
-
+      ASPNETCORE_ENVIRONMENT: Development
     ports:
-      - "5002:8080"
-
-  # Cart microservice
-  cart-service:
-    build: 
-        context: ./Cart
-    container_name: cart-service
-    depends_on:
-      - sqlserver
-      - redis
-      - kafka
-    environment:
-      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=CartDb;User Id=sa;Password=StrongPassword123!;TrustServerCertificate=True;"
-      Redis__Configuration: redis:6379
-      Kafka__BootstrapServers: kafka:9092
-
-    ports:
-      - "5003:8080"
-
-  # API Gateway
-  api-gateway:
-    build: 
-      context: ./ApiGateway
-    container_name: api-gateway
-    depends_on:
-      - users-service
-      - product-service
-      - cart-service
-    ports:
-      - "5000:8080"  # Exposed to host for testing
-
+      - "5000:8080"
 
 volumes:
   sql_data:
-  minio_data:
-  kafka_data:
-
