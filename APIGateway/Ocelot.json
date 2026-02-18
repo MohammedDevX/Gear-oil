@@ -1,23 +1,21 @@
 ﻿{
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7062"
+    "BaseUrl": "http://localhost:5000"
   },
 
   "Routes": [
     {
-      "UpstreamPathTemplate": "", // Dir url li yban user
+      "UpstreamPathTemplate": "/user/index", // Dir url li yban user
       "UpstreamHttpMethod": [ "GET" ], // Dir verbe method
       "DownstreamPathTemplate": "/api/user/index", // dir url dyal action li fcontroller
-      "DownstreamScheme": "https",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7150 // Dir port dyal dak controller atlgah f Properties https ....
+          "Host": "userservice", // Nom container dyal service li docker compose
+          "Port": 5001 // Dir port dyal dak controller atlgah docker compose 
         }
       ]
     },
-
-
 
   ]
 }
