@@ -2,7 +2,7 @@
 {
     public class Client : User
     {
-        public bool Bloque { get; set; } = true;
+        public bool Bloque { get; set; } = false;
     }
 
 }
