@@ -6,3 +6,5 @@ Accept: application/json
 GET {{User_Service_HostAddress}}/weatherforecast/
 
 ###
+
+GET {{User_Service_HostAddress}}/weatherfor/
