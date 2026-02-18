@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using User_Service.Data;
 
@@ -10,9 +11,11 @@ using User_Service.Data;
 namespace User_Service.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    partial class UserDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260218201806_ClinetMnew")]
+    partial class ClinetMnew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,25 +23,6 @@ namespace User_Service.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("User_Service.Models.Admin", b =>
-                {
-                    b.Property<int>("AdminId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdminId"));
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("AdminId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Admins");
-                });
 
             modelBuilder.Entity("User_Service.Models.Client", b =>
                 {
@@ -59,7 +43,7 @@ namespace User_Service.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Clients");
+                    b.ToTable("Client");
                 });
 
             modelBuilder.Entity("User_Service.Models.User", b =>
@@ -101,17 +85,6 @@ namespace User_Service.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("User_Service.Models.Admin", b =>
-                {
-                    b.HasOne("User_Service.Models.User", "User")
-                        .WithOne("Admin")
-                        .HasForeignKey("User_Service.Models.Admin", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("User_Service.Models.Client", b =>
                 {
                     b.HasOne("User_Service.Models.User", "User")
@@ -125,9 +98,6 @@ namespace User_Service.Migrations
 
             modelBuilder.Entity("User_Service.Models.User", b =>
                 {
-                    b.Navigation("Admin")
-                        .IsRequired();
-
                     b.Navigation("Clients")
                         .IsRequired();
                 });

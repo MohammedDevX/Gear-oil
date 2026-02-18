@@ -5,7 +5,7 @@
 namespace User_Service.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreatee : Migration
+    public partial class ClinetMnew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
