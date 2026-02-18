@@ -1,0 +1,23 @@
+﻿{
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7062"
+  },
+
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "", // Dir url li yban user
+      "UpstreamHttpMethod": [ "GET" ], // Dir verbe method
+      "DownstreamPathTemplate": "/api/user/index", // dir url dyal action li fcontroller
+      "DownstreamScheme": "https",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 7150 // Dir port dyal dak controller atlgah f Properties https ....
+        }
+      ]
+    },
+
+
+
+  ]
+}
