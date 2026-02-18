@@ -1,7 +1,7 @@
 <Solution>
-  <Folder Name="/Solution Items/">
-    <File Path="docker-compose.yml" />
-  </Folder>
   <Project Path="APIGateway/APIGateway.csproj" Id="4549d2d7-1110-48d2-9f80-c72a2652361c" />
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
   <Project Path="User_Service/User_Service.csproj" />
 </Solution>
