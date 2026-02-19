@@ -5,14 +5,14 @@
 
   "Routes": [
     {
-      "UpstreamPathTemplate": "/user/index", // Dir url li yban user
+      "UpstreamPathTemplate": "/clients", // Dir url li yban user
       "UpstreamHttpMethod": [ "GET" ], // Dir verbe method
-      "DownstreamPathTemplate": "/api/user/index", // dir url dyal action li fcontroller
+      "DownstreamPathTemplate": "/api/client/GetClients", // dir url dyal action li fcontroller
       "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "userservice", // Nom container dyal service li docker compose
-          "Port": 5001 // Dir port dyal dak controller atlgah docker compose 
+          "Port": 8080 // Dir port dyal dak controller atlgah docker compose 
         }
       ]
     },

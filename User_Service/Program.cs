@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using User_Service.Data;
+using User_Service.Repositories.UserRepositorie;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -12,6 +13,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
         builder.Configuration.GetConnectionString("DefaultConnection"))
     );
 
+builder.Services.AddScoped<IClientR, ClientR>();
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())
