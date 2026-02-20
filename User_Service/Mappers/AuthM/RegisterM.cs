@@ -21,12 +21,42 @@ namespace User_Service.Mappers.AuthM
         {
             return new RegisterResponse
             {
-                Id = Guid.Parse(user.Id),
+                Id = user.Id,
                 Nom = user.Nom,
                 Prenom = user.Prenom,
                 UserName = user.UserName,
                 Email = user.Email
             };
         }
+
+        public static ApplicationUser FromDTOAdminToApplicationUser(RegisterAdminDTO dto)
+        {
+            return new ApplicationUser
+            {
+                Nom = dto.Nom,
+                Prenom = dto.Prenom,
+                Email = dto.Email,
+                IsActive = false
+            };
+        }
+
+        public static RegisterAdminResponse ToRegisterAdminResponse(ApplicationUser user)
+        {
+            return new RegisterAdminResponse
+            {
+                Id = user.Id,
+                Nom = user.Nom,
+                Prenom = user.Prenom,
+                Email = user.Email
+            };
+        }
+
+        //public static ApplicationUser MapPassword(PasswordComfirmationDTO dto)
+        //{
+        //    return new ApplicationUser
+        //    {
+        //        PasswordHash = dto.
+        //    }
+        //}
     }
 }

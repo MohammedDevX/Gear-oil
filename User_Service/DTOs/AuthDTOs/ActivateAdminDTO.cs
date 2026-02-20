@@ -2,18 +2,14 @@
 
 namespace User_Service.DTOs.AuthDTOs
 {
-    public class RegisterDTO
+    public class ActivateAdminDTO
     {
-        public string Nom { get; set; }
-        public string Prenom { get; set; }
-        public string User_name { get; set; }
-        [EmailAddress]
-        public string Email { get; set; }
+        public string UserId { get; set; }
+        public string Token { get; set; }
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{6,}$", ErrorMessage = "Respecter les normes de mot passe")]
         public string Mot_passe { get; set; }
-        [DataType(DataType.Password)]
         [Compare("Mot_passe")]
-        public string Confirm_pass { get; set; }
+        public string Comfirmation_pass { get; set; }
     }
 }

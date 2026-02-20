@@ -4,6 +4,8 @@ namespace User_Service.Services.Auth
 {
     public interface IAuthHandler
     {
-        public Task<ApplicationUser> RegisterHandler(ApplicationUser user, string pass);
+        public Task<bool> RegisterHandler(ApplicationUser user, string pass);
+        public Task<bool> RegisterAdminHandler(ApplicationUser user);
+        public Task<string> GenerateToken(ApplicationUser admin);
     }
 }
