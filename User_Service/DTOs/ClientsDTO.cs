@@ -1,4 +1,4 @@
-﻿using User_Service.Enums;
+﻿//using User_Service.Enums;
 
 namespace User_Service.DTOs
 {
@@ -9,6 +9,6 @@ namespace User_Service.DTOs
         public string Prenom { get; set; }
         public string NomUser { get; set; }
         public string Email { get; set; }
-        public UserRole Role { get; set; }
+        //public UserRole Role { get; set; }
     }
 }

@@ -14,12 +14,18 @@ namespace User_Service.Controllers
             _client = client;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetClients()
+        //[HttpGet]
+        //public async Task<IActionResult> GetClients()
+        //{
+        //    var clients = await _client.GetAll();
+        //    var allClients = ClientsM.ToClientsDTO(clients);
+        //    return Ok(allClients);
+        //}
+
+        public async Task<IActionResult> BlockedChange()
         {
-            var clients = await _client.GetAll();
-            var allClients = ClientsM.ToClientsDTO(clients);
-            return Ok(allClients);
+
+            return NoContent();
         }
     }
 }

@@ -7,7 +7,7 @@ using User_Service.Models;
 
 namespace User_Service.Repositories.UserRepositorie
 {
-    public class ClientR : IClientR
+    public class ClientR 
     {
         private UserDbContext context;
         public ClientR(UserDbContext context)
@@ -15,22 +15,15 @@ namespace User_Service.Repositories.UserRepositorie
             this.context = context;
         }
 
-        public async Task<List<User>> GetUsers()
-        {
-            var users = await context.Users.ToListAsync();
-            return users;
-        }
+        //public async Task<List<Client>> GetAll()
+        //{
+        //    var clients = await context.Clients.Include(u => u.User).ToListAsync();
+        //    return clients;
+        //}
 
-        public async Task<List<Client>> GetAll()
-        {
-            var clients = await context.Clients.Include(u => u.User).ToListAsync();
-            return clients;
-        }
-
-        public async Task Add(User user)
-        {
-            await context.Users.AddAsync(user);
-            await context.SaveChangesAsync();
-        }
+        //public async Task BlockedChange()
+        //{
+        //    context.Clients.Update()
+        //}
     }
 }
