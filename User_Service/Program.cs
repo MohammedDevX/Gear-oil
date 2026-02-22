@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using User_Service.Data;
 using User_Service.Models;
 using User_Service.Services.Auth;
+using User_Service.Services.ClientsHandler;
 using User_Service.Services.EmailSender;
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +21,7 @@ builder.Services.AddDbContext<UserDbContext>(options =>
 //builder.Services.AddScoped<IClientR, ClientR>();
 builder.Services.AddScoped<IAuthHandler, AuthHandler>();
 builder.Services.AddScoped<IEmailSender, EmailSenderHandler>();
+builder.Services.AddScoped<IClientsHandler, ClientsHandler>();
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<UserDbContext>()

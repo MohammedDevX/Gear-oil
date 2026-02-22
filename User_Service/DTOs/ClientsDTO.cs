@@ -1,14 +1,16 @@
 ﻿//using User_Service.Enums;
 
+using System.Security.Principal;
+
 namespace User_Service.DTOs
 {
     public class ClientsDTO
     {
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public string Nom { get; set; }
         public string Prenom { get; set; }
-        public string NomUser { get; set; }
+        public string UserName { get; set; }
         public string Email { get; set; }
-        //public UserRole Role { get; set; }
+        public bool IsBlocled { get; set; }
     }
 }

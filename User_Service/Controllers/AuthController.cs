@@ -31,33 +31,33 @@ namespace User_Service.Controllers
             return Ok();
         }
 
-        //[HttpPost("register-client")]
-        //public async Task<IActionResult> RegisterClient(RegisterDTO dto)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return StatusCode(422);
-        //    }
+        [HttpPost("register-client")]
+        public async Task<IActionResult> RegisterClient(RegisterDTO dto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return StatusCode(422);
+            }
 
-        //    var user = RegisterM.ToApplicationUser(dto);
-        //    var checkExistingClient = await authHandler.CheckExistingUser(user, "Client");
-        //    if (checkExistingClient == false)
-        //    {
-        //        return NotFound();
-        //    }
+            var user = RegisterM.ToApplicationUser(dto);
+            var checkExistingClient = await authHandler.CheckExistingUser(user, "Client");
+            if (checkExistingClient == false)
+            {
+                return NotFound();
+            }
 
-        //    var createdUser = await authHandler.RegisterHandler(user, dto.Mot_passe);
-        //    if (createdUser == false)
-        //    {
-        //        return BadRequest();
-        //    }
+            var createdUser = await authHandler.RegisterHandler(user, dto.Mot_passe);
+            if (createdUser == false)
+            {
+                return BadRequest();
+            }
 
-        //    var userResponse = RegisterM.ToRegisterResponse(user);
-        //    return CreatedAtAction(nameof(GetUser), new { userResponse.Id }, userResponse);
-        //}
+            var userResponse = RegisterM.ToRegisterResponse(user);
+            return CreatedAtAction(nameof(GetUser), new { userResponse.Id }, userResponse);
+        }
 
         //[Authorize("Admin")]
-        [HttpPost]
+        [HttpPost("register-admin")]
         public async Task<IActionResult> RegisterAdmin(RegisterAdminDTO dto)
         {
             if (!ModelState.IsValid)

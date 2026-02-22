@@ -5,26 +5,26 @@ namespace User_Service.Mappers
 {
     public class ClientsM
     {
-        //public static List<ClientsDTO> ToClientsDTO(List<Client> clients)
-        //{
-        //    List<ClientsDTO> allClients = new List<ClientsDTO>();
+        public static List<ClientsDTO> ToClientsDTO(List<ApplicationUser> clients)
+        {
+            List<ClientsDTO> allClients = new List<ClientsDTO>();
 
-        //    foreach(Client client in clients)
-        //    {
-        //        ClientsDTO permClient = new ClientsDTO
-        //        {
-        //            UserId = client.UserId,
-        //            Nom = client.User.Nom,
-        //            Prenom = client.User.Prenom,
-        //            NomUser = client.User.NomUser,
-        //            Email = client.User.Email,
-        //            Role = client.User.Role
-        //        };
+            foreach (ApplicationUser client in clients)
+            {
+                ClientsDTO permClient = new ClientsDTO
+                {
+                    UserId = client.Id,
+                    Nom = client.Nom,
+                    Prenom = client.Prenom,
+                    UserName = client.UserName,
+                    Email = client.Email,
+                    IsBlocled = (bool)client.IsBlocked
+                };
 
-        //        allClients.Add(permClient);
-        //    }
+                allClients.Add(permClient);
+            }
 
-        //    return allClients;
-        //}
+            return allClients;
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace User_Service.Repositories.UserRepositorie
 {
     public interface IClientR
     {
-        //public Task<List<Client>> GetAll();
-        //public Task BlockedChange();
+        public Task<List<ApplicationUser>> GetAll();
+        public Task BlockedChange();
     }
 }
