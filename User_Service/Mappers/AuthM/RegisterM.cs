@@ -35,6 +35,7 @@ namespace User_Service.Mappers.AuthM
             {
                 Nom = dto.Nom,
                 Prenom = dto.Prenom,
+                UserName = dto.Email,
                 Email = dto.Email,
                 IsActive = false
             };
@@ -51,12 +52,13 @@ namespace User_Service.Mappers.AuthM
             };
         }
 
-        //public static ApplicationUser MapPassword(PasswordComfirmationDTO dto)
-        //{
-        //    return new ApplicationUser
-        //    {
-        //        PasswordHash = dto.
-        //    }
-        //}
+        public static ApplicationUser ToActivateAdmin(ActivateAdminDTO dto)
+        {
+            return new ApplicationUser
+            {
+                PasswordHash = dto.Mot_passe,
+                IsActive = true
+            };
+        }
     }
 }

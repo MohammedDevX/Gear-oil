@@ -16,6 +16,53 @@
         }
       ]
     },
-
+    {
+      "UpstreamPathTemplate": "/user", // Dir url li yban user
+      "UpstreamHttpMethod": [ "GET" ], // Dir verbe method
+      "DownstreamPathTemplate": "/api/auth", // dir url dyal action li fcontroller
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice", // Nom container dyal service li docker compose
+          "Port": 8080 // Dir port dyal dak controller atlgah docker compose 
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/activate", // Dir url li yban user
+      "UpstreamHttpMethod": [ "PATCH" ], // Dir verbe method
+      "DownstreamPathTemplate": "/api/auth", // dir url dyal action li fcontroller
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice", // Nom container dyal service li docker compose
+          "Port": 8080 // Dir port dyal dak controller atlgah docker compose 
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/register", // Dir url li yban user
+      "UpstreamHttpMethod": [ "POST" ], // Dir verbe method
+      "DownstreamPathTemplate": "/api/auth/register-client", // dir url dyal action li fcontroller
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice", // Nom container dyal service li docker compose
+          "Port": 8080 // Dir port dyal dak controller atlgah docker compose 
+        }
+      ]
+    },
+    {
+      "UpstreamPathTemplate": "/register-admin", // Dir url li yban user
+      "UpstreamHttpMethod": [ "POST" ], // Dir verbe method
+      "DownstreamPathTemplate": "/api/auth/register-admin", // dir url dyal action li fcontroller
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "userservice", // Nom container dyal service li docker compose
+          "Port": 8080 // Dir port dyal dak controller atlgah docker compose 
+        }
+      ]
+    }
   ]
 }
