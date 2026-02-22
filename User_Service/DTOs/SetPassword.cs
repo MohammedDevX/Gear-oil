@@ -1,6 +1,9 @@
-﻿public class SetPasswordDto
+﻿namespace User_Service.DTOs
 {
-    public string UserId { get; set; }
-    public string Token { get; set; }
-    public string Password { get; set; }
+    public class SetPasswordDto
+    {
+        public string UserId { get; set; }
+        public string Token { get; set; }
+        public string Password { get; set; }
+    }
 }

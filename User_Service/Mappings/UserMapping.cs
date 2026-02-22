@@ -21,7 +21,9 @@ namespace User_Service.Mappings
             return new ApplicationUser
             {
                 UserName = dto.Email,
-                Email = dto.Email
+                Email = dto.Email,
+                Nom = "",
+                Prenom = ""
             };
         }
     }

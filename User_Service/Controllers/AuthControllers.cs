@@ -15,14 +15,6 @@ namespace User_Service.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly EmailService _emailService;
         private readonly IConfiguration _configuration;
-
-        public AuthController(
-            UserManager<ApplicationUser> userManager,
-            RoleManager<IdentityRole> roleManager)
-        {
-            _userManager = userManager;
-            _roleManager = roleManager;
-        }
         public AuthController(
             UserManager<ApplicationUser> userManager,
             RoleManager<IdentityRole> roleManager,
