@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using User_Service.Mappers;
-using User_Service.Repositories.UserRepositorie;
+using User_Service.Mappers.ClientM;
 using User_Service.Services.ClientsHandler;
 
 namespace User_Service.Controllers
@@ -9,11 +8,9 @@ namespace User_Service.Controllers
     [ApiController]
     public class ClientController : ControllerBase
     {
-        //private IClientR _client;
         private IClientsHandler clientHandler;
         public ClientController( IClientsHandler clientHandler)
         {
-            //_client = client;
             this.clientHandler = clientHandler;
         }
 
@@ -26,7 +23,7 @@ namespace User_Service.Controllers
             return Ok(allClients);
         }
 
-        [HttpPatch]
+        [HttpPatch("{id}")]
         public async Task<IActionResult> BlockedChange(string id)
         {
             var check = await clientHandler.CheckExistingIdClient(id);

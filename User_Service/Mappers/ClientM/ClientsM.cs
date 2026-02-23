@@ -1,7 +1,7 @@
-﻿using User_Service.DTOs;
+﻿using User_Service.DTOs.ClientDTOs;
 using User_Service.Models;
 
-namespace User_Service.Mappers
+namespace User_Service.Mappers.ClientM
 {
     public class ClientsM
     {

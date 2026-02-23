@@ -15,10 +15,9 @@ builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 builder.Services.AddDbContext<UserDbContext>(options =>
     options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection"))
-    );
+        builder.Configuration.GetConnectionString("DefaultConnection")
+    ));
 
-//builder.Services.AddScoped<IClientR, ClientR>();
 builder.Services.AddScoped<IAuthHandler, AuthHandler>();
 builder.Services.AddScoped<IEmailSender, EmailSenderHandler>();
 builder.Services.AddScoped<IClientsHandler, ClientsHandler>();
@@ -26,11 +25,6 @@ builder.Services.AddScoped<IClientsHandler, ClientsHandler>();
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<UserDbContext>()
     .AddDefaultTokenProviders();
-
-builder.Services.Configure<IdentityOptions>(option =>
-{
-    option.User.RequireUniqueEmail = true;
-});
 
 var app = builder.Build();
 using (var scope = app.Services.CreateScope())

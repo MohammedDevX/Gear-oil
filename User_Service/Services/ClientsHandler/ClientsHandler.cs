@@ -20,13 +20,13 @@ namespace User_Service.Services.ClientsHandler
         public async Task<ApplicationUser> CheckExistingIdClient(string id)
         {
             var check = await userManager.FindByIdAsync(id);
-            return check; 
-            //if (check == null)
-            //{
-            //    return false;
-            //}
+            var userWithClientRole = await userManager.IsInRoleAsync(check, "Client");
+            if (userWithClientRole == false || check == null)
+            {
+                return null;
+            }
 
-            //return true;
+            return check; 
         }
 
         public async Task<bool> BlcokedHandler(ApplicationUser client)
@@ -34,12 +34,6 @@ namespace User_Service.Services.ClientsHandler
             client.IsBlocked = !client.IsBlocked;
             var res = await userManager.UpdateAsync(client);
             return res.Succeeded;
-            //if (!res.Succeeded)
-            //{
-            //    return false;
-            //}
-
-            //return true;
         }
     }
 }

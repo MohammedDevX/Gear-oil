@@ -1,10 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Text;
 using User_Service.DTOs.AuthDTOs;
 using User_Service.Mappers.AuthM;
 using User_Service.Services.Auth;
@@ -86,10 +81,9 @@ namespace User_Service.Controllers
             // Geneate url, that call activate account end point
             var link = Url.Action("ActivateAdmin", "Auth", new { userId = admin.Id, token = token }, Request.Scheme);
 
-            // The function accepete 3 params : created email, email subject, html body
-            //await sender.SendEmailAsync(admin.Email,
-            //    "Activation de compte", $"Clicker ici: <a href='{link}'>Activer</a>");
-
+            // Get html gmail msg template :
+            // _env.ContentRootPath : To get the path of the service ex: C:\Users\Desktop\GearOil\User_service
+            // and combine this path with template path
             var templatePath = Path.Combine(_env.ContentRootPath, "EmailTemplates", "email-activation-gearoil.html");
 
             // Option B — si le fichier est à la racine du projet (ContentRootPath)
@@ -99,6 +93,7 @@ namespace User_Service.Controllers
                 .Replace("{link}", link)
                 .Replace("{Nom de l'administrateur}", admin.Nom + " " +  admin.Prenom);
 
+            // The function accepete 3 params : created email, email subject, html body
             await sender.SendEmailAsync(admin.Email, "Activation de compte", html);
 
             var adminResponse = RegisterM.ToRegisterAdminResponse(admin);
@@ -127,11 +122,6 @@ namespace User_Service.Controllers
             {
                 return BadRequest();
             }
-
-            //if (checkUpdated == false)
-            //{
-            //    return BadRequest();
-            //}
 
             return NoContent();
         }

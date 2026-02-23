@@ -2,7 +2,7 @@
 
 using System.Security.Principal;
 
-namespace User_Service.DTOs
+namespace User_Service.DTOs.ClientDTOs
 {
     public class ClientsDTO
     {

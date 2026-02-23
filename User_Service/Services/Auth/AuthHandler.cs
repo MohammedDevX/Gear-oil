@@ -25,8 +25,6 @@ namespace User_Service.Services.Auth
                 return false;
             }
 
-            await userManager.DeleteAsync(user);
-
             return true;
         }
 
