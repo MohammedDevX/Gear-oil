@@ -26,7 +26,7 @@ services:
         condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=UserDb;User Id=sa;Password=Your_password123!;TrustServerCertificate=True;"
+      ConnectionStrings__DefaultConnection: "Server=sqlserver,1433;Database=UserService;User Id=sa;Password=Your_password123!;TrustServerCertificate=True;"
     ports:
       - "5001:8080"
 
